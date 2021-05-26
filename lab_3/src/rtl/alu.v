@@ -29,12 +29,12 @@ module alu(
     output wire zero
     );
 
-    assign y =  (f==3'b000) ? a + b:
-                (f==3'd1) ? a - b:
-                (f==3'd2) ? a & b:
-                (f==3'd3) ? a | b:
-                (f==3'd4) ? ~a:
-                (f==3'd5) ? a < b:
+    assign y =  (f==3'b000) ? a & b: // and
+                (f==3'b001) ? a | b: // or
+                (f==3'b010) ? a + b: // add
+                (f==3'b110) ? a - b: // sub
+                (f==3'b100) ? ~a:    // not
+                (f==3'b111) ? a < b: // slt
                 32'b0;
     assign zero = (y == 32'b0);
     // always @(*) begin

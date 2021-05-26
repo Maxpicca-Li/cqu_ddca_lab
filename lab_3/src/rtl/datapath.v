@@ -5,7 +5,7 @@ module datapath (
     input wire regwrite,regdst,alusrc,branch,memWrite,memtoReg,jump,
     input wire [2:0]alucontrol,
     input wire [31:0]instr,data_ram_rdata,
-    output wire [31:0]pc_now,alu_res,data_ram_wdata
+    output wire [31:0]pc_now,data_ram_waddr,data_ram_wdata
 );
 
 // pc
@@ -19,7 +19,7 @@ wire[5:0] wa3;
 wire[31:0]rd1,rd2,wd3;
 
 // alu
-wire [31:0]srcB;
+wire [31:0]srcB,alu_res;
 
 // control
 wire pcsrc,zero;
@@ -114,5 +114,7 @@ mux2 mux2_memtoReg(
     .sel(memtoReg),
     .y(wd3)
 );
+
+assign data_ram_waddr = alu_res;
 
 endmodule

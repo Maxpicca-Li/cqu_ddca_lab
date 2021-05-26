@@ -7,21 +7,21 @@ module controller (
     wire [1:0]aluop;
     
     main_dec main_dec(
-    .op(instr[31:26]),
-    .regwrite(regwrite),
-    .regdst(regdst),
-    .alusrc(alusrc),
-    .branch(branch),
-    .memWrite(memWrite),
-    .memtoReg(memtoReg),
-    .jump(jump),
-    .aluop(aluop)
+        .op(instr[31:26]), // 前in后out
+        .regwrite(regwrite),
+        .regdst(regdst),
+        .alusrc(alusrc),
+        .branch(branch),
+        .memWrite(memWrite),
+        .memtoReg(memtoReg),
+        .jump(jump),
+        .aluop(aluop)
     );
 
     alu_dec alu_dec(
-    .aluop(aluop),
-    .funct(instr[5:0]),
-    .alucontrol(alucontrol)
+        .aluop(aluop), 
+        .funct(instr[5:0]), // 前in后out
+        .alucontrol(alucontrol)
     );
     
 endmodule
@@ -34,12 +34,12 @@ module main_dec (
     output wire [1:0]aluop
 );
     wire [8:0]temp;
-    assign  temp =  (op==6'b000000) ? 9'b110000100: //最后一位是jump
-                    (op==6'b100011) ? 9'b101001000: 
-                    (op==6'b101011) ? 9'b001010000: 
-                    (op==6'b000100) ? 9'b000100010: 
-                    (op==6'b001000) ? 9'b101000000: 
-                    (op==6'b000010) ? 9'b000000001:
+    assign  temp =  (op==6'b000000) ? 9'b110000_10_0: // R-type 最后一位是jump
+                    (op==6'b100011) ? 9'b101001_00_0: // lw
+                    (op==6'b101011) ? 9'b001010_00_0: // sw
+                    (op==6'b000100) ? 9'b000100_01_0: // beq
+                    (op==6'b001000) ? 9'b101000_00_0: // addi
+                    (op==6'b000010) ? 9'b000000_00_1: // j
                     9'b000000000; // 注意：这里的X信号，全部视为0
     assign {regwrite,regdst,alusrc,branch,memWrite,memtoReg,aluop,jump} = temp;
 endmodule
@@ -55,9 +55,9 @@ module alu_dec (
                         (aluop==2'b10) ? 
                             (funct==6'b100000) ? 3'b010:
                             (funct==6'b100010) ? 3'b110:
-                            (funct==6'b100100) ? 3'b000:
-                            (funct==6'b100101) ? 3'b001:
-                            (funct==6'b101010) ? 3'b111:
+                            (funct==6'b100100) ? 3'b000: // and
+                            (funct==6'b100101) ? 3'b001: // or
+                            (funct==6'b101010) ? 3'b111: // slt
                             3'b000:
                         3'b000; // default
 endmodule

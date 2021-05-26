@@ -40,7 +40,7 @@ port a options
 
 仿真图片：
 
-https://upload-images.jianshu.io/upload_images/24714066-2a5137f20063aeef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+![img](https://upload-images.jianshu.io/upload_images/24714066-2a5137f20063aeef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 控制台输出：
 

@@ -30,13 +30,12 @@ module regfile(
 
 	reg [31:0] rf[31:0];
 
-	// XXX 按照学长的意思，写入的时候，应该在下降沿？？
 	// 上升沿 ==>需要前推writeback值
 	// 下降沿 ==>可以不用前推writeback值
-
-	always @(posedge clk) begin
+	// XXX 原来是这里，果然要考虑writeback所有可能的情况，包括~clk的reg和mem
+	always @(negedge clk) begin
 		if(we3) begin
-			 rf[wa3] <= wd3;
+			rf[wa3] <= wd3;
 		end
 	end
 

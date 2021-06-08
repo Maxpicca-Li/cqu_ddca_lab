@@ -40,3 +40,4 @@
 需要仿真图一张，控制台打印输出图一张，要求仿真图中包含 pc、instr、rs、rt、rd、result 信号， 仿真图应在控制台打印输出 Simulation succeeded 时截图。控制台打印输出图为此时截图。
 
 ![image-20210526205012447](https://i.loli.net/2021/05/26/USqt9CixlnFeKJT.png)
+

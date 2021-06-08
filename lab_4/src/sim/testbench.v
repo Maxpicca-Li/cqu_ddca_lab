@@ -31,7 +31,7 @@ module testbench();
 
 	initial begin 
 		rst <= 1;
-		#200;
+		#100;
 		rst <= 0;
 	end
 
@@ -40,7 +40,6 @@ module testbench();
 		#10;
 		clk <= 0;
 		#10;
-	
 	end
 
 	always @(negedge clk) begin
